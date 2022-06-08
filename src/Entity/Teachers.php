@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TeachersRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TeachersRepository::class)]
@@ -24,6 +26,14 @@ class Teachers
 
     #[ORM\Column(type: 'string', length: 255)]
     private $teacher_phone;
+
+    #[ORM\OneToMany(mappedBy: 'teachers', targetEntity: Course::class)]
+    private $courses;
+
+    public function __construct()
+    {
+        $this->courses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -81,5 +91,35 @@ class Teachers
     public function __toString()
     {
         return $this->teacher_fname . ' ' . $this->teacher_lname;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+            $course->setTeachers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        if ($this->courses->removeElement($course)) {
+            // set the owning side to null (unless already changed)
+            if ($course->getTeachers() === $this) {
+                $course->setTeachers(null);
+            }
+        }
+
+        return $this;
     }
 }
