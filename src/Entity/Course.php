@@ -19,7 +19,6 @@ class Course
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Teacher::class, inversedBy: 'courses')]
-    #[ORM\JoinColumn(nullable: false)]
     private $teacher;
 
     #[ORM\OneToMany(mappedBy: 'courses', targetEntity: Test::class)]
