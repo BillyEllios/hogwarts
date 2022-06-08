@@ -18,10 +18,10 @@ class House
     #[ORM\Column(type: 'string', length: 32)]
     private $name;
 
-    #[ORM\OneToMany(mappedBy: 'house', targetEntity: Students::class)]
+    #[ORM\OneToMany(mappedBy: 'house', targetEntity: Student::class)]
     private $students;
 
-    #[ORM\OneToOne(targetEntity: Teachers::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: Teacher::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private $houseMaster;
 
@@ -60,7 +60,7 @@ class House
         return $this->students;
     }
 
-    public function addStudent(Students $student): self
+    public function addStudent(Student $student): self
     {
         if (!$this->students->contains($student)) {
             $this->students[] = $student;
@@ -70,7 +70,7 @@ class House
         return $this;
     }
 
-    public function removeStudent(Students $student): self
+    public function removeStudent(Student $student): self
     {
         if ($this->students->removeElement($student)) {
             // set the owning side to null (unless already changed)
@@ -82,12 +82,12 @@ class House
         return $this;
     }
 
-    public function getHouseMaster(): ?Teachers
+    public function getHouseMaster(): ?Teacher
     {
         return $this->houseMaster;
     }
 
-    public function setHouseMaster(Teachers $houseMaster): self
+    public function setHouseMaster(Teacher $houseMaster): self
     {
         $this->houseMaster = $houseMaster;
 

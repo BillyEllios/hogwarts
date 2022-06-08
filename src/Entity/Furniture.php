@@ -18,9 +18,9 @@ class Furniture
     #[ORM\Column(type: 'string', length: 32)]
     private $name;
 
-    #[ORM\ManyToOne(targetEntity: Students::class, inversedBy: 'furniture')]
+    #[ORM\ManyToOne(targetEntity: Student::class, inversedBy: 'furniture')]
     #[ORM\JoinColumn(nullable: false)]
-    private $students;
+    private $student;
 
     #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'furniture')]
     private $courses;
@@ -47,14 +47,14 @@ class Furniture
         return $this;
     }
 
-    public function getStudents(): ?Students
+    public function getStudent(): ?Student
     {
-        return $this->students;
+        return $this->student;
     }
 
-    public function setStudents(?Students $students): self
+    public function setStudent(?Student $student): self
     {
-        $this->students = $students;
+        $this->student = $student;
 
         return $this;
     }

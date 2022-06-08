@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Students;
+use App\Entity\Student;
 use App\Service\BirthService;
 use App\Service\HouseService;
 use App\Service\NameService;
@@ -11,7 +11,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class StudentsFixtures extends Fixture implements DependentFixtureInterface
+class StudentFixtures extends Fixture implements DependentFixtureInterface
 {
     public function __construct(private NameService $nameService, private BirthService $birthService, private PhoneService $phoneService, private HouseService $houseService)
     {
@@ -26,17 +26,17 @@ class StudentsFixtures extends Fixture implements DependentFixtureInterface
 
     public function load(ObjectManager $manager): void
     {
-        $nbStudents = 50;
+        $nbStudent = 50;
 
-        for ($i = 0; $i < $nbStudents; $i++) {
-            $students[] = (new Students())
+        for ($i = 0; $i < $nbStudent; $i++) {
+            $Student[] = (new Student())
                 ->setStudentFname($this->nameService->getFirstName())
                 ->setStudentLname($this->nameService->getLastName())
                 ->setStudentPhone($this->phoneService->getPhone())
                 ->setStudentBirth($this->birthService->getBirthDate(1990, 2010))
                 ->setHouse($this->houseService->getHouse());
         }
-        $this->persist($manager, ...$students);
+        $this->persist($manager, ...$Student);
     }
     
     private function persist(ObjectManager $manager, ...$objects)

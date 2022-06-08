@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Teachers;
+use App\Entity\Teacher;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Teachers>
+ * @extends ServiceEntityRepository<Teacher>
  *
- * @method Teachers|null find($id, $lockMode = null, $lockVersion = null)
- * @method Teachers|null findOneBy(array $criteria, array $orderBy = null)
- * @method Teachers[]    findAll()
- * @method Teachers[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Teacher|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Teacher|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Teacher[]    findAll()
+ * @method Teacher[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TeachersRepository extends ServiceEntityRepository
+class TeacherRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Teachers::class);
+        parent::__construct($registry, Teacher::class);
     }
 
-    public function add(Teachers $entity, bool $flush = false): void
+    public function add(Teacher $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class TeachersRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Teachers $entity, bool $flush = false): void
+    public function remove(Teacher $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class TeachersRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Teachers[] Returns an array of Teachers objects
+//     * @return Teacher[] Returns an array of Teacher objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class TeachersRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Teachers
+//    public function findOneBySomeField($value): ?Teacher
 //    {
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')

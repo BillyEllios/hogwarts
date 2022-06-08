@@ -3,8 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\House;
-use App\Entity\Students;
-use App\Entity\Teachers;
+use App\Entity\Student;
+use App\Entity\Teacher;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -26,7 +26,7 @@ class DashboardController extends AbstractDashboardController
         // return parent::index();
 
         // Option 1. You can make your dashboard redirect to some common page of your backend
-        return $this->redirect($this->adminUrlGenerator->setController(StudentsCrudController::class)->generateUrl());
+        return $this->redirect($this->adminUrlGenerator->setController(StudentCrudController::class)->generateUrl());
 
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
@@ -49,8 +49,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Hogwarts', 'fa fa-hat-wizard');
-        yield MenuItem::linkToCrud('Students', 'fa fa-title-text', Students::class);
-        yield MenuItem::linkToCrud('Teachers', 'fa fa-cauldron', Teachers::class);
-        yield MenuItem::linkToCrud('House', 'fa fa-title-text', House::class);
+        yield MenuItem::linkToCrud('Students', 'fa fa-title-text', Student::class);
+        yield MenuItem::linkToCrud('Teachers', 'fa fa-cauldron', Teacher::class);
+        yield MenuItem::linkToCrud('Houses', 'fa fa-title-text', House::class);
     }
 }

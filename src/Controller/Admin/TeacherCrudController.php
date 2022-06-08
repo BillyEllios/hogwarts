@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Students;
+use App\Entity\Teacher;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -12,11 +12,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
-class StudentsCrudController extends AbstractCrudController
+class TeacherCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Students::class;
+        return Teacher::class;
     }
 
     public function configureActions(Actions $actions): Actions
@@ -24,16 +24,16 @@ class StudentsCrudController extends AbstractCrudController
         return $actions
         ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
-
+    
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id'),
-            TextField::new('student_fname'),
-            TextField::new('student_lname'),
-            DateField::new('student_birth'),
-            TextField::new('student_phone'),
-            AssociationField::new('house')
+            TextField::new('teacher_fname'),
+            TextField::new('teacher_lname'),
+            TextField::new('teacher_phone'),
+            DateField::new('teacher_birth'),
         ];
     }
+    
 }

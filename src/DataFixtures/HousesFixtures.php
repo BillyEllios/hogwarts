@@ -3,7 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\House;
-use App\Entity\Teachers;
+use App\Entity\Teacher;
 use App\Service\NameService;
 use App\Service\BirthService;
 use App\Service\PhoneService;
@@ -19,11 +19,11 @@ class HousesFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        $nbTeachers = 50; 
-        $teachers = [];
+        $nbTeacher = 50; 
+        $Teacher = [];
         
-        for ($i = 0; $i < $nbTeachers; $i++) {
-            $teachers[] = (new Teachers())
+        for ($i = 0; $i < $nbTeacher; $i++) {
+            $Teacher[] = (new Teacher())
                 ->setTeacherFname($this->nameService->getFirstName())
                 ->setTeacherLname($this->nameService->getLastName())
                 ->setTeacherPhone($this->phoneService->getPhone())
@@ -31,13 +31,13 @@ class HousesFixtures extends Fixture
         }
 
         $houses = [];
-        $houses[] = (new House())->setName('Gryffindor')->setHouseMaster($teachers[0]);
-        $houses[] = (new House())->setName('Ravenclaw')->setHouseMaster($teachers[1]);
-        $houses[] = (new House())->setName('Slytherin')->setHouseMaster($teachers[2]);
-        $houses[] = (new House())->setName('Hufflepuff')->setHouseMaster($teachers[3]);
+        $houses[] = (new House())->setName('Gryffindor')->setHouseMaster($Teacher[0]);
+        $houses[] = (new House())->setName('Ravenclaw')->setHouseMaster($Teacher[1]);
+        $houses[] = (new House())->setName('Slytherin')->setHouseMaster($Teacher[2]);
+        $houses[] = (new House())->setName('Hufflepuff')->setHouseMaster($Teacher[3]);
 
 
-        $this->persist($manager, ...$teachers, ...$houses);
+        $this->persist($manager, ...$Teacher, ...$houses);
     }
     
     private function persist(ObjectManager $manager, ...$objects)

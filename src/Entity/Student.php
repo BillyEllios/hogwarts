@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\StudentsRepository;
+use App\Repository\StudentRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: StudentsRepository::class)]
-class Students
+#[ORM\Entity(repositoryClass: StudentRepository::class)]
+class Student
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -31,16 +31,16 @@ class Students
     #[ORM\JoinColumn(nullable: false)]
     private $house;
 
-    #[ORM\OneToMany(mappedBy: 'students', targetEntity: Test::class)]
+    #[ORM\OneToMany(mappedBy: 'student', targetEntity: Test::class)]
     private $tests;
 
-    #[ORM\OneToMany(mappedBy: 'students', targetEntity: Furniture::class)]
-    private $furniture;
+    #[ORM\OneToMany(mappedBy: 'student', targetEntity: Furniture::class)]
+    private $furnitures;
 
     public function __construct()
     {
         $this->tests = new ArrayCollection();
-        $this->furniture = new ArrayCollection();
+        $this->furnitures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,7 +120,7 @@ class Students
     {
         if (!$this->tests->contains($test)) {
             $this->tests[] = $test;
-            $test->setStudents($this);
+            $test->setStudent($this);
         }
 
         return $this;
@@ -130,8 +130,8 @@ class Students
     {
         if ($this->tests->removeElement($test)) {
             // set the owning side to null (unless already changed)
-            if ($test->getStudents() === $this) {
-                $test->setStudents(null);
+            if ($test->getStudent() === $this) {
+                $test->setStudent(null);
             }
         }
 
@@ -141,16 +141,16 @@ class Students
     /**
      * @return Collection<int, Furniture>
      */
-    public function getFurniture(): Collection
+    public function getFurnitures(): Collection
     {
-        return $this->furniture;
+        return $this->furnitures;
     }
 
     public function addFurniture(Furniture $furniture): self
     {
         if (!$this->furniture->contains($furniture)) {
-            $this->furniture[] = $furniture;
-            $furniture->setStudents($this);
+            $this->furnitures[] = $furniture;
+            $furniture->setStudent($this);
         }
 
         return $this;
@@ -158,10 +158,10 @@ class Students
 
     public function removeFurniture(Furniture $furniture): self
     {
-        if ($this->furniture->removeElement($furniture)) {
+        if ($this->furnitures->removeElement($furniture)) {
             // set the owning side to null (unless already changed)
-            if ($furniture->getStudents() === $this) {
-                $furniture->setStudents(null);
+            if ($furniture->getStudent() === $this) {
+                $furniture->setStudent(null);
             }
         }
 
