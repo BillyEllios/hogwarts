@@ -19,7 +19,6 @@ class Furniture
     private $name;
 
     #[ORM\ManyToOne(targetEntity: Student::class, inversedBy: 'furniture')]
-    #[ORM\JoinColumn(nullable: false)]
     private $student;
 
     #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'furniture')]

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Furniture;
 use App\Entity\House;
 use App\Entity\Student;
 use App\Entity\Teacher;
@@ -52,5 +53,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Students', 'fa fa-title-text', Student::class);
         yield MenuItem::linkToCrud('Teachers', 'fa fa-cauldron', Teacher::class);
         yield MenuItem::linkToCrud('Houses', 'fa fa-title-text', House::class);
+        yield MenuItem::linkToCrud('Furnitures', 'fa fa-title-text', Furniture::class);
     }
 }

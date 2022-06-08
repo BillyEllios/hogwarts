@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Students;
+use App\Entity\Student;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,14 +14,14 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Students[]    findAll()
  * @method Students[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class StudentsRepository extends ServiceEntityRepository
+class StudentRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Students::class);
     }
 
-    public function add(Students $entity, bool $flush = false): void
+    public function add(Student $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class StudentsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Students $entity, bool $flush = false): void
+    public function remove(Student $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class StudentsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Students[] Returns an array of Students objects
+//     * @return Student[] Returns an array of Student objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class StudentsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Students
+//    public function findOneBySomeField($value): ?Student
 //    {
 //        return $this->createQueryBuilder('s')
 //            ->andWhere('s.exampleField = :val')
