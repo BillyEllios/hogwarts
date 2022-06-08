@@ -37,10 +37,14 @@ class Student
     #[ORM\OneToMany(mappedBy: 'student', targetEntity: Furniture::class)]
     private $furnitures;
 
+    #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'students')]
+    private $students;
+
     public function __construct()
     {
         $this->tests = new ArrayCollection();
         $this->furnitures = new ArrayCollection();
+        $this->students = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -164,6 +168,30 @@ class Student
                 $furniture->setStudent(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Course $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students[] = $student;
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Course $student): self
+    {
+        $this->students->removeElement($student);
 
         return $this;
     }
