@@ -77,4 +77,9 @@ class Teachers
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->teacher_fname . ' ' . $this->teacher_lname;
+    }
 }

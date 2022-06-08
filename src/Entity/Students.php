@@ -25,6 +25,10 @@ class Students
     #[ORM\Column(type: 'string', length: 255)]
     private $student_phone;
 
+    #[ORM\ManyToOne(targetEntity: House::class, inversedBy: 'students')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $house;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +78,18 @@ class Students
     public function setStudentPhone(string $student_phone): self
     {
         $this->student_phone = $student_phone;
+
+        return $this;
+    }
+
+    public function getHouse(): ?House
+    {
+        return $this->house;
+    }
+
+    public function setHouse(?House $house): self
+    {
+        $this->house = $house;
 
         return $this;
     }
