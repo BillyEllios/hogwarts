@@ -24,17 +24,18 @@ class Course
     #[ORM\OneToMany(mappedBy: 'courses', targetEntity: Test::class)]
     private $tests;
 
-    #[ORM\ManyToMany(targetEntity: Furniture::class, mappedBy: 'courses')]
-    private $furniture;
-
     #[ORM\ManyToMany(targetEntity: Student::class, mappedBy: 'students')]
     private $students;
+
+    #[ORM\ManyToMany(targetEntity: FurnitureType::class, mappedBy: 'Courses')]
+    private $furnitureTypes;
 
     public function __construct()
     {
         $this->tests = new ArrayCollection();
         $this->furniture = new ArrayCollection();
         $this->students = new ArrayCollection();
+        $this->furnitureTypes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -97,33 +98,6 @@ class Course
     }
 
     /**
-     * @return Collection<int, Furniture>
-     */
-    public function getFurniture(): Collection
-    {
-        return $this->furniture;
-    }
-
-    public function addFurniture(Furniture $furniture): self
-    {
-        if (!$this->furniture->contains($furniture)) {
-            $this->furniture[] = $furniture;
-            $furniture->addCourse($this);
-        }
-
-        return $this;
-    }
-
-    public function removeFurniture(Furniture $furniture): self
-    {
-        if ($this->furniture->removeElement($furniture)) {
-            $furniture->removeCourse($this);
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Student>
      */
     public function getStudents(): Collection
@@ -145,6 +119,33 @@ class Course
     {
         if ($this->students->removeElement($student)) {
             $student->removeStudent($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FurnitureType>
+     */
+    public function getFurnitureTypes(): Collection
+    {
+        return $this->furnitureTypes;
+    }
+
+    public function addFurnitureType(FurnitureType $furnitureType): self
+    {
+        if (!$this->furnitureTypes->contains($furnitureType)) {
+            $this->furnitureTypes[] = $furnitureType;
+            $furnitureType->addCourse($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFurnitureType(FurnitureType $furnitureType): self
+    {
+        if ($this->furnitureTypes->removeElement($furnitureType)) {
+            $furnitureType->removeCourse($this);
         }
 
         return $this;

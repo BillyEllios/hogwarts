@@ -21,9 +21,6 @@ class Furniture
     #[ORM\ManyToOne(targetEntity: Student::class, inversedBy: 'furniture')]
     private $student;
 
-    #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'furniture')]
-    private $courses;
-
     #[ORM\ManyToOne(targetEntity: FurnitureType::class, inversedBy: 'furniture')]
     #[ORM\JoinColumn(nullable: false)]
     private $FurnituresTypes;
@@ -58,30 +55,6 @@ class Furniture
     public function setStudent(?Student $student): self
     {
         $this->student = $student;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Course>
-     */
-    public function getCourses(): Collection
-    {
-        return $this->courses;
-    }
-
-    public function addCourse(Course $course): self
-    {
-        if (!$this->courses->contains($course)) {
-            $this->courses[] = $course;
-        }
-
-        return $this;
-    }
-
-    public function removeCourse(Course $course): self
-    {
-        $this->courses->removeElement($course);
 
         return $this;
     }

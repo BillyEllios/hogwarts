@@ -21,9 +21,13 @@ class FurnitureType
     #[ORM\OneToMany(mappedBy: 'FurnituresTypes', targetEntity: Furniture::class)]
     private $furniture;
 
+    #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'furnitureTypes')]
+    private $Courses;
+
     public function __construct()
     {
         $this->furniture = new ArrayCollection();
+        $this->Courses = new ArrayCollection();
     }
 
     public function __toString()
@@ -74,6 +78,30 @@ class FurnitureType
                 $furniture->setFurnituresTypes(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Course>
+     */
+    public function getCourses(): Collection
+    {
+        return $this->Courses;
+    }
+
+    public function addCourse(Course $course): self
+    {
+        if (!$this->Courses->contains($course)) {
+            $this->Courses[] = $course;
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(Course $course): self
+    {
+        $this->Courses->removeElement($course);
 
         return $this;
     }
