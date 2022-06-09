@@ -40,6 +40,9 @@ class Student
     #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'students')]
     private $students;
 
+    #[ORM\ManyToOne(targetEntity: QuiddichTeam::class, inversedBy: 'students')]
+    private $quiddichTeam;
+
     public function __construct()
     {
         $this->tests = new ArrayCollection();
@@ -197,6 +200,18 @@ class Student
     public function removeStudent(Course $student): self
     {
         $this->students->removeElement($student);
+
+        return $this;
+    }
+
+    public function getQuiddichTeam(): ?QuiddichTeam
+    {
+        return $this->quiddichTeam;
+    }
+
+    public function setQuiddichTeam(?QuiddichTeam $quiddichTeam): self
+    {
+        $this->quiddichTeam = $quiddichTeam;
 
         return $this;
     }
