@@ -4,9 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Entity\Course;
 use App\Entity\Furniture;
+use App\Entity\FurnitureType;
 use App\Entity\House;
 use App\Entity\Student;
 use App\Entity\Teacher;
+use App\Entity\Test;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -54,7 +56,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Students', 'fa fa-title-text', Student::class);
         yield MenuItem::linkToCrud('Teachers', 'fa fa-cauldron', Teacher::class);
         yield MenuItem::linkToCrud('Houses', 'fa fa-title-text', House::class);
+        yield MenuItem::linkToCrud('FurnituresTypes', 'fa fa-title-text', FurnitureType::class);
         yield MenuItem::linkToCrud('Furnitures', 'fa fa-title-text', Furniture::class);
         yield MenuItem::linkToCrud('Courses', 'fa fa-title-text', Course::class);
+        yield MenuItem::linkToCrud('Tests', 'fa fa-title-text', Test::class);
     }
 }

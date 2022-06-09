@@ -24,6 +24,12 @@ class Test
     #[ORM\JoinColumn(nullable: false)]
     private $courses;
 
+    #[ORM\Column(type: 'date')]
+    private $date;
+
+    #[ORM\Column(type: 'integer')]
+    private $mark;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -61,6 +67,30 @@ class Test
     public function setCourses(?Course $courses): self
     {
         $this->courses = $courses;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getMark(): ?int
+    {
+        return $this->mark;
+    }
+
+    public function setMark(int $mark): self
+    {
+        $this->mark = $mark;
 
         return $this;
     }
