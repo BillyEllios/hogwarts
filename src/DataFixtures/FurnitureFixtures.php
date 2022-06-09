@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Furniture;
+use App\Service\StudentService;
 use App\Service\FurnitureTypeService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -12,15 +13,16 @@ class FurnitureFixtures extends Fixture implements DependentFixtureInterface
 {
 
     public function __construct(
-        private FurnitureTypeService $furnitureTypeService
-    )
+        private FurnitureTypeService $furnitureTypeService,
+        private StudentService $studentService)
     {
         
     }
 
     public function getDependencies() {
         return [
-            FurnitureTypeFixtures::class
+            FurnitureTypeFixtures::class,
+            StudentFixtures::class,
         ];
     }
 
@@ -36,6 +38,7 @@ class FurnitureFixtures extends Fixture implements DependentFixtureInterface
         foreach ($furnitures as $furniture => $furnitureType){
             $furnitureEntities [] = (new Furniture())
                 ->setName($furniture)
+                ->setStudent($this->studentService->getStudent())
                 ->setFurnituresTypes($this->furnitureTypeService->getFromName($furnitureType));
         }
 

@@ -47,6 +47,11 @@ class Student
         $this->students = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->student_fname;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

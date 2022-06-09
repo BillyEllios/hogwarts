@@ -33,11 +33,9 @@ class FurnitureCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
+            AssociationField::new('student'),
             TextField::new('name'),
             AssociationField::new('FurnituresTypes')
-                ->formatValue(function ($furnitesType) {
-                    return $this->furnitureTypeService->getFromName($furnitesType);
-                })
         ];
     }
 }
