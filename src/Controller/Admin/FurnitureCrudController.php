@@ -3,15 +3,21 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Furniture;
+use App\Service\FurnitureTypeService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class FurnitureCrudController extends AbstractCrudController
 {
+    public function __construct(private FurnitureTypeService $furnitureTypeService) {
+
+    }
+
     public static function getEntityFqcn(): string
     {
         return Furniture::class;
@@ -28,6 +34,10 @@ class FurnitureCrudController extends AbstractCrudController
         return [
             IdField::new('id'),
             TextField::new('name'),
+            AssociationField::new('FurnituresTypes')
+                ->formatValue(function ($furnitesType) {
+                    return $this->furnitureTypeService->getFromName($furnitesType);
+                })
         ];
     }
 }

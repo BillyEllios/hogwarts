@@ -24,6 +24,10 @@ class Furniture
     #[ORM\ManyToMany(targetEntity: Course::class, inversedBy: 'furniture')]
     private $courses;
 
+    #[ORM\ManyToOne(targetEntity: FurnitureType::class, inversedBy: 'furniture')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $FurnituresTypes;
+
     public function __construct()
     {
         $this->courses = new ArrayCollection();
@@ -78,6 +82,18 @@ class Furniture
     public function removeCourse(Course $course): self
     {
         $this->courses->removeElement($course);
+
+        return $this;
+    }
+
+    public function getFurnituresTypes(): ?FurnitureType
+    {
+        return $this->FurnituresTypes;
+    }
+
+    public function setFurnituresTypes(?FurnitureType $FurnituresTypes): self
+    {
+        $this->FurnituresTypes = $FurnituresTypes;
 
         return $this;
     }

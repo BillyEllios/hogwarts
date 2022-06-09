@@ -13,8 +13,6 @@ class CourseFixtures extends Fixture
 
     }    
 
-  
-
     public function load(ObjectManager $manager)
     {
         $course = [];

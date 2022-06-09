@@ -3,25 +3,43 @@
 namespace App\DataFixtures;
 
 use App\Entity\Furniture;
+use App\Service\FurnitureTypeService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class FurnitureFixtures extends Fixture
+class FurnitureFixtures extends Fixture implements DependentFixtureInterface
 {
-    public function __construct()
+
+    public function __construct(
+        private FurnitureTypeService $furnitureTypeService
+    )
     {
+        
+    }
 
-    }    
+    public function getDependencies() {
+        return [
+            FurnitureTypeFixtures::class
+        ];
+    }
 
-    public function load(ObjectManager $manager)
+    public function load(ObjectManager $manager): void
     {
-        $furniture = [];
-        $furniture[] = (new Furniture())->setName('Wand');
-        $furniture[] = (new Furniture())->setName('Robe');
-        $furniture[] = (new Furniture())->setName('Broomstick');
-        $furniture[] = (new Furniture())->setName('Crucible');
+        $furnitureEntities = [];
+        $furnitures = ['Surreau Wand' => 'Wand','Basic Wand' => 'Wand',
+        'Invisibility Cloak' => 'Clothes', 'Nimbus 2000' => 'Broomstick',
+        'Nimbus 4000' => 'Broomstick','Robe of Gryffindor' => 'Clothes',
+        'Robe of Ravenclaw' => 'Clothes','Robe of Slytherin' => 'Clothes',
+        'Robe of Hufflepuff' => 'Clothes','Basic Crucible' => 'Crucible','Golden Crucible' => 'Crucible'];
 
-        $this->persist($manager, ...$furniture);
+        foreach ($furnitures as $furniture => $furnitureType){
+            $furnitureEntities [] = (new Furniture())
+                ->setName($furniture)
+                ->setFurnituresTypes($this->furnitureTypeService->getFromName($furnitureType));
+        }
+
+        $this->persist($manager, ...$furnitureEntities);
     }
 
     private function persist(ObjectManager $manager, ...$objects)
