@@ -35,7 +35,6 @@ class HouseCrudController extends AbstractCrudController
             AssociationField::new('houseMaster'),
             AssociationField::new('students'),
             CollectionField::new('students')
-                ->setEntryIsComplex(true),
         ];
     }
     
