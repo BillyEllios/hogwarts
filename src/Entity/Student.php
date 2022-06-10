@@ -108,6 +108,11 @@ class Student
         return $this;
     }
 
+      public function getFullName()
+    {
+        return $this->getStudentFname().' '.$this->getStudentLname();
+    }
+
     public function getHouse(): ?House
     {
         return $this->house;

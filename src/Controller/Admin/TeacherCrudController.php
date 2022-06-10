@@ -28,8 +28,7 @@ class TeacherCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
-            TextField::new('teacher_fname'),
-            TextField::new('teacher_lname'),
+            TextField::new('fullName'),
             TextField::new('teacher_phone'),
             DateField::new('teacher_birth'),
         ];

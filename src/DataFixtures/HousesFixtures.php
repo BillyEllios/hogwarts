@@ -3,16 +3,22 @@
 namespace App\DataFixtures;
 
 use App\Entity\House;
+use App\Entity\Student;
 use App\Entity\Teacher;
 use App\Service\NameService;
 use App\Service\BirthService;
 use App\Service\PhoneService;
+use App\Service\StudentService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
 class HousesFixtures extends Fixture
 {
-    public function __construct(private NameService $nameService, private BirthService $birthService, private PhoneService $phoneService)
+    public function __construct(
+        private NameService $nameService, 
+        private BirthService $birthService, 
+        private PhoneService $phoneService,
+        private StudentService $studentService)
     {
         
     }

@@ -93,6 +93,11 @@ class Teacher
         return $this->teacher_fname . ' ' . $this->teacher_lname;
     }
 
+    public function getFullName()
+    {
+        return $this->getTeacherFname().' '.$this->getTeacherLname();
+    }
+
     /**
      * @return Collection<int, Course>
      */
